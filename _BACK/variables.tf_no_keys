@@ -1,0 +1,174 @@
+# Authentication
+
+variable "api_private_key" {
+  default = ""
+}
+
+variable "api_key_id" {
+  default = ""
+}
+
+variable "api_endpoint" {
+  default = "https://intersight.com"
+}
+
+
+# Server and Organization names
+variable "server_names" { 
+  type = list
+}
+
+variable "organization_name" {} 
+
+variable "catalog_name" {}
+
+
+variable "policy_name_prefix" {
+    default = "tf_"
+}
+
+# Variables for Lan Connectivity Policy
+variable "iqn_allocation_type" {}
+variable "placement_mode" {}
+variable "target_platform" {}
+
+
+# Variables for Network Configurations
+variable "ethernet_networks" {
+  type = list(object({
+      description = string 
+      default_vlan = number
+      allowed_vlans = string
+      eth_mode = string
+    })  
+  )
+  default = [
+    {
+      description = "Management"
+      default_vlan = 1
+      allowed_vlans = "0-4096"
+      eth_mode = "TRUNK"
+    }
+  ]
+}
+
+# Variables for Ethernet Adapter Policies
+variable "ethernet_adapter_policies" {
+  type = list(object({
+    net_function = string
+    compqueue_nr = number
+    compqueue_ringsize = number
+    rxqueue_nr = number
+    rxqueue_ringsize = number
+    txqueue_nr = number
+    txqueue_ringsize = number
+    })
+  )
+  default = [ {
+    net_function = "mgmt"
+    compqueue_nr = 3
+    compqueue_ringsize = 1
+    rxqueue_nr = 4
+    rxqueue_ringsize = 512
+    txqueue_nr = 4
+    txqueue_ringsize = 512
+  } ]
+}
+
+# Variables for Ethernet QoS Policies
+variable "ethernet_qos_policies" {
+  type = list(object({
+    vnic_qos = number
+    })
+  )
+  default = [{
+    vnic_qos = 1500
+  }]
+}
+
+# Variables for Network Adapters (VNICS)
+variable "network_config" {
+  type = list(object({
+      description = string 
+      default_vlan = number
+      vnic_slot = string
+      vic_slot_id = string
+      pci_link = number
+      phy_port = string
+      if_nameprefix = string
+      adapter_policy = string
+      qos_policy = string
+    })
+  )
+  default = [
+    {
+      description = "mgmt0"
+      default_vlan = 1
+      vnic_slot = "0"
+      vic_slot_id = "MLOM"
+      pci_link = 0
+      phy_port = "0"
+      if_nameprefix = "eth"
+      adapter_policy = "mgmt"
+      qos_policy = 1500
+    },
+    {
+      description = "mgmt1"
+      default_vlan = 1
+      vnic_slot = "1"
+      vic_slot_id = "MLOM"
+      pci_link = 0
+      phy_port = "1"
+      if_nameprefix = "eth"
+      adapter_policy = "mgmt"
+      qos_policy = 1500
+    },
+  ]
+}
+
+#Storage Configuration
+
+variable "storage_dg_name" {}
+variable "storage_dg_raid" {}
+variable "storage_dg_type" {} # "0" for manual drive selectio and "1" for automatic drive selection
+variable "storage_dg_drive_slots" {}
+
+variable "storage_vd_name" {}
+variable "storage_vd_size" {} #minimum size
+variable "storage_vd_expand" {} # true or false
+variable "storage_vd_bootable" {} # true or false
+
+variable "storage_pol_name" {}
+variable "storage_pol_use_jbod" {} #boolean
+variable "storage_pol_unused_state" {}
+variable "storage_pol_m2vd" {} #boolean
+
+
+#OS Boot Configuration
+variable "osboot_pol_name" {}
+variable "osboot_pol_description" {}
+variable "osboot_pol_bootmode" {}
+variable "osboot_pol_enforceuefi" {} #boolean
+variable "osboot_enable_cimcdvd" {} #boolean
+variable "osboot_enable_localhdd" {} #boolean
+
+# NTP Policy Configuration
+variable "ntp_name" {}
+variable "ntp_description" {}
+variable "ntp_enabled" {}
+variable "ntp_timezone" {}
+variable "ntp_servers" {}
+
+# vKVM Policy Configuration
+
+variable "vkvm_name" {}
+variable "vkvm_description" {}
+
+# BIOS policy Configuration
+variable "bios_name" {}
+variable "bios_description" {}
+
+# Server Profile Template Configuration
+variable "server_template_name" {}
+variable "server_template_description" {}
+variable "server_template_platform" {}

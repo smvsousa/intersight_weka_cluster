@@ -1,0 +1,1 @@
+../server_profiles/serverlist.auto.tfvars

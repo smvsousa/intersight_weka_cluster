@@ -1,3 +1,10 @@
+# Weka.IO cluster management with Cisco Intersight
+# ________________________________________________
+#   Plan outcomes : OS configuration and WekaIO software deployment
+#   Plan version  : 0.5 (Draft)
+#   Author        : Sergio Sousa (https://www.linkedin.com/in/ssousa/)
+# 
+
 # Intersight provider Information
 terraform {
   cloud {    

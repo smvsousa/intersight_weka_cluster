@@ -1,3 +1,11 @@
+
+# Weka.IO cluster management with Cisco Intersight
+# ________________________________________________
+#   Plan outcomes : Creation of Intersight policies, profiles and server profiles
+#   Plan version  : 1.0
+#   Author        : Sergio Sousa (https://www.linkedin.com/in/ssousa/)
+# 
+
 # Intersight provider Information
 terraform {
   cloud {    
